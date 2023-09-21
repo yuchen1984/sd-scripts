@@ -588,10 +588,10 @@ def load_user_config(file: str) -> dict:
 # for config test
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument("--support_dreambooth", action="store_true")
-  parser.add_argument("--support_finetuning", action="store_true")
-  parser.add_argument("--support_controlnet", action="store_true")
-  parser.add_argument("--support_dropout", action="store_true")
+  parser.add_argument("--support_dreambooth", default=False, type=bool)
+  parser.add_argument("--support_finetuning", default=False, type=bool)
+  parser.add_argument("--support_controlnet", default=False, type=bool)
+  parser.add_argument("--support_dropout", default=False, type=bool)
   parser.add_argument("dataset_config")
   config_args, remain = parser.parse_known_args()
 

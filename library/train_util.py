@@ -2617,9 +2617,9 @@ def get_sai_model_spec(
 
 def add_sd_models_arguments(parser: argparse.ArgumentParser):
     # for pretrained models
-    parser.add_argument("--v2", action="store_true", help="load Stable Diffusion v2.0 model / Stable Diffusion 2.0のモデルを読み込む")
+    parser.add_argument("--v2", default=False, type=bool, help="load Stable Diffusion v2.0 model / Stable Diffusion 2.0のモデルを読み込む")
     parser.add_argument(
-        "--v_parameterization", action="store_true", help="enable v-parameterization training / v-parameterization学習を有効にする"
+        "--v_parameterization", default=False, type=bool, help="enable v-parameterization training / v-parameterization学習を有効にする"
     )
     parser.add_argument(
         "--pretrained_model_name_or_path",
@@ -2646,12 +2646,12 @@ def add_optimizer_arguments(parser: argparse.ArgumentParser):
     # backward compatibility
     parser.add_argument(
         "--use_8bit_adam",
-        action="store_true",
+        default=False, type=bool,
         help="use 8bit AdamW optimizer (requires bitsandbytes) / 8bit Adamオプティマイザを使う（bitsandbytesのインストールが必要）",
     )
     parser.add_argument(
         "--use_lion_optimizer",
-        action="store_true",
+        default=False, type=bool,
         help="use Lion optimizer (requires lion-pytorch) / Lionオプティマイザを使う（ lion-pytorch のインストールが必要）",
     )
 
@@ -2726,16 +2726,16 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
         help="huggingface repository visibility ('public' for public, 'private' or None for private) / huggingfaceにアップロードするリポジトリの公開設定（'public'で公開、'private'またはNoneで非公開）",
     )
     parser.add_argument(
-        "--save_state_to_huggingface", action="store_true", help="save state to huggingface / huggingfaceにstateを保存する"
+        "--save_state_to_huggingface", default=False, type=bool, help="save state to huggingface / huggingfaceにstateを保存する"
     )
     parser.add_argument(
         "--resume_from_huggingface",
-        action="store_true",
+        default=False, type=bool,
         help="resume from huggingface (ex: --resume {repo_id}/{path_in_repo}:{revision}:{repo_type}) / huggingfaceから学習を再開する(例: --resume {repo_id}/{path_in_repo}:{revision}:{repo_type})",
     )
     parser.add_argument(
         "--async_upload",
-        action="store_true",
+        default=False, type=bool,
         help="upload to huggingface asynchronously / huggingfaceに非同期でアップロードする",
     )
     parser.add_argument(
@@ -2783,7 +2783,7 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
     )
     parser.add_argument(
         "--save_state",
-        action="store_true",
+        default=False, type=bool,
         help="save training state additionally (including optimizer states etc.) / optimizerなど学習状態も含めたstateを追加で保存する",
     )
     parser.add_argument("--resume", type=str, default=None, help="saved state to resume training / 学習再開するモデルのstate")
@@ -2798,13 +2798,13 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
     )
     parser.add_argument(
         "--mem_eff_attn",
-        action="store_true",
+        default=False, type=bool,
         help="use memory efficient attention for CrossAttention / CrossAttentionに省メモリ版attentionを使う",
     )
     parser.add_argument("--xformers", default=False, type=bool, help="use xformers for CrossAttention / CrossAttentionにxformersを使う")
     parser.add_argument(
         "--sdpa",
-        action="store_true",
+        default=False, type=bool,
         help="use sdpa for CrossAttention (requires PyTorch 2.0) / CrossAttentionにsdpaを使う（PyTorch 2.0が必要）",
     )
     parser.add_argument(
@@ -2826,7 +2826,7 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
     )
     parser.add_argument(
         "--persistent_data_loader_workers",
-        action="store_true",
+        default=False, type=bool,
         help="persistent DataLoader workers (useful for reduce time gap between epoch, but may use more memory) / DataLoader のワーカーを持続させる (エポック間の時間差を少なくするのに有効だが、より多くのメモリを消費する可能性がある)",
     )
     parser.add_argument("--seed", type=int, default=None, help="random seed for training / 学習時の乱数のseed")
@@ -2923,7 +2923,7 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
     )
     parser.add_argument(
         "--zero_terminal_snr",
-        action="store_true",
+        default=False, type=bool,
         help="fix noise scheduler betas to enforce zero terminal SNR / noise schedulerのbetasを修正して、zero terminal SNRを強制する",
     )
     parser.add_argument(
@@ -2989,7 +2989,7 @@ def add_training_arguments(parser: argparse.ArgumentParser, support_dreambooth: 
         help="using .toml instead of args to pass hyperparameter / ハイパーパラメータを引数ではなく.tomlファイルで渡す",
     )
     parser.add_argument(
-        "--output_config", action="store_true", help="output command line args to given .toml file / 引数を.tomlファイルに出力する"
+        "--output_config", default=False, type=bool, help="output command line args to given .toml file / 引数を.tomlファイルに出力する"
     )
 
     # SAI Model spec
@@ -3082,7 +3082,7 @@ def add_dataset_arguments(
     # dataset common
     parser.add_argument("--train_data_dir", type=str, default=None, help="directory for train images / 学習画像データのディレクトリ")
     parser.add_argument(
-        "--shuffle_caption", action="store_true", help="shuffle comma-separated caption / コンマで区切られたcaptionの各要素をshuffleする"
+        "--shuffle_caption", default=False, type=bool, help="shuffle comma-separated caption / コンマで区切られたcaptionの各要素をshuffleする"
     )
     parser.add_argument(
         "--caption_extension", type=str, default=".caption", help="extension of caption files / 読み込むcaptionファイルの拡張子"
@@ -3111,8 +3111,8 @@ def add_dataset_arguments(
         default=None,
         help="suffix for caption text / captionのテキストの末尾に付ける文字列",
     )
-    parser.add_argument("--color_aug", action="store_true", help="enable weak color augmentation / 学習時に色合いのaugmentationを有効にする")
-    parser.add_argument("--flip_aug", action="store_true", help="enable horizontal flip augmentation / 学習時に左右反転のaugmentationを有効にする")
+    parser.add_argument("--color_aug", default=False, type=bool, help="enable weak color augmentation / 学習時に色合いのaugmentationを有効にする")
+    parser.add_argument("--flip_aug", default=False, type=bool, help="enable horizontal flip augmentation / 学習時に左右反転のaugmentationを有効にする")
     parser.add_argument(
         "--face_crop_aug_range",
         type=str,
@@ -3121,11 +3121,11 @@ def add_dataset_arguments(
     )
     parser.add_argument(
         "--random_crop",
-        action="store_true",
+        default=False, type=bool,
         help="enable random crop (for style training in face-centered crop augmentation) / ランダムな切り出しを有効にする（顔を中心としたaugmentationを行うときに画風の学習用に指定する）",
     )
     parser.add_argument(
-        "--debug_dataset", action="store_true", help="show images for debugging (do not train) / デバッグ用に学習データを画面表示する（学習は行わない）"
+        "--debug_dataset", default=False, type=bool, help="show images for debugging (do not train) / デバッグ用に学習データを画面表示する（学習は行わない）"
     )
     parser.add_argument(
         "--resolution",
@@ -3156,7 +3156,7 @@ def add_dataset_arguments(
         help="steps of resolution for buckets, divisible by 8 is recommended / bucketの解像度の単位、8で割り切れる値を推奨します",
     )
     parser.add_argument(
-        "--bucket_no_upscale", action="store_true", help="make bucket for each image without upscaling / 画像を拡大せずbucketを作成します"
+        "--bucket_no_upscale", default=False, type=bool, help="make bucket for each image without upscaling / 画像を拡大せずbucketを作成します"
     )
 
     parser.add_argument(
@@ -3220,7 +3220,7 @@ def add_sd_saving_arguments(parser: argparse.ArgumentParser):
     )
     parser.add_argument(
         "--use_safetensors",
-        action="store_true",
+        default=False, type=bool,
         help="use safetensors format to save (if save_model_as is not specified) / checkpoint、モデルをsafetensors形式で保存する（save_model_as未指定時）",
     )
 

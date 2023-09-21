@@ -908,7 +908,7 @@ def setup_parser() -> argparse.ArgumentParser:
     config_util.add_config_arguments(parser)
     custom_train_functions.add_custom_train_arguments(parser)
 
-    parser.add_argument("--no_metadata", action="store_true", help="do not save metadata in output model / メタデータを出力先モデルに保存しない")
+    parser.add_argument("--no_metadata", default=False, type=bool, help="do not save metadata in output model / メタデータを出力先モデルに保存しない")
     parser.add_argument(
         "--save_model_as",
         type=str,
@@ -949,7 +949,7 @@ def setup_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--dim_from_weights",
-        action="store_true",
+        default=False, type=bool,
         help="automatically determine dim (rank) from network_weights / dim (rank)をnetwork_weightsで指定した重みから自動で決定する",
     )
     parser.add_argument(
@@ -974,7 +974,7 @@ def setup_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--no_half_vae",
-        action="store_true",
+        default=False, type=bool,
         help="do not use fp16/bf16 VAE in mixed precision (use float VAE) / mixed precisionでも fp16/bf16 VAEを使わずfloat VAEを使う",
     )
     return parser
