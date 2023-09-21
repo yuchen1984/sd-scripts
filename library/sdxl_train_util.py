@@ -322,11 +322,11 @@ def save_sd_model_on_epoch_end_or_stepwise(
 
 def add_sdxl_training_arguments(parser: argparse.ArgumentParser):
     parser.add_argument(
-        "--cache_text_encoder_outputs", action="store_true", help="cache text encoder outputs / text encoderの出力をキャッシュする"
+        "--cache_text_encoder_outputs", default=False, type=bool, help="cache text encoder outputs / text encoderの出力をキャッシュする"
     )
     parser.add_argument(
         "--cache_text_encoder_outputs_to_disk",
-        action="store_true",
+        default=False, type=bool,
         help="cache text encoder outputs to disk / text encoderの出力をディスクにキャッシュする",
     )
 

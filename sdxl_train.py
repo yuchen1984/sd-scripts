@@ -719,11 +719,11 @@ def setup_parser() -> argparse.ArgumentParser:
     custom_train_functions.add_custom_train_arguments(parser)
     sdxl_train_util.add_sdxl_training_arguments(parser)
 
-    parser.add_argument("--diffusers_xformers", action="store_true", help="use xformers by diffusers / Diffusersでxformersを使用する")
-    parser.add_argument("--train_text_encoder", action="store_true", help="train text encoder / text encoderも学習する")
+    parser.add_argument("--diffusers_xformers", default=False, type=bool, help="use xformers by diffusers / Diffusersでxformersを使用する")
+    parser.add_argument("--train_text_encoder", default=False, type=bool, help="train text encoder / text encoderも学習する")
     parser.add_argument(
         "--no_half_vae",
-        action="store_true",
+        default=False, type=bool,
         help="do not use fp16/bf16 VAE in mixed precision (use float VAE) / mixed precisionでも fp16/bf16 VAEを使わずfloat VAEを使う",
     )
     parser.add_argument(

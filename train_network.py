@@ -940,9 +940,9 @@ def setup_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--network_args", type=str, default=None, nargs="*", help="additional argmuments for network (key=value) / ネットワークへの追加の引数"
     )
-    parser.add_argument("--network_train_unet_only", action="store_true", help="only training U-Net part / U-Net関連部分のみ学習する")
+    parser.add_argument("--network_train_unet_only", default=False, type=bool, help="only training U-Net part / U-Net関連部分のみ学習する")
     parser.add_argument(
-        "--network_train_text_encoder_only", action="store_true", help="only training Text Encoder part / Text Encoder関連部分のみ学習する"
+        "--network_train_text_encoder_only", default=False, type=bool, help="only training Text Encoder part / Text Encoder関連部分のみ学習する"
     )
     parser.add_argument(
         "--training_comment", type=str, default=None, help="arbitrary comment string stored in metadata / メタデータに記録する任意のコメント文字列"
